@@ -165,10 +165,44 @@ def BFTRecLinkedListHelper(cur):
 def BFTIterLinkedList(graph):
     return graph.Nodes.values()
 
-n = 10000
-g = createLinkedList(n)
-temp = BFTIterLinkedList(g)
+n = 10
+n1 = 10000
+g = createRandomUnweightedGraphIter(n)
+g1 = createLinkedList(n)
+g2 = createLinkedList(n1)
+
+temp = DFSRec(g.Nodes[0], g.Nodes[n-1])
 if temp is not None:
     for i in temp:
         print(i.val)
+print()
 
+temp = DFSIter(g.Nodes[0], g.Nodes[n-1])
+if temp is not None:
+    for i in temp:
+        print(i.val)
+print()
+
+temp = BFTRec(g)
+if temp is not None:
+    for i in temp:
+        print(i.val)
+print()
+
+temp = BFTIter(g)
+if temp is not None:
+    for i in temp:
+        print(i.val)
+print()
+
+# temp = BFTRecLinkedList(g1)
+# if temp is not None:
+#     for i in temp:
+#         print(i.val)
+# print()
+
+temp = BFTIterLinkedList(g2)
+if temp is not None:
+    for i in temp:
+        print(i.val)
+print()
