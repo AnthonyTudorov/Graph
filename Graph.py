@@ -174,35 +174,35 @@ g2 = createLinkedList(n1)
 temp = DFSRec(g.Nodes[0], g.Nodes[n-1])
 if temp is not None:
     for i in temp:
-        print(i.val)
+        print(i.val, end='')
 print()
 
 temp = DFSIter(g.Nodes[0], g.Nodes[n-1])
 if temp is not None:
     for i in temp:
-        print(i.val)
+        print(i.val, end='')
 print()
 
 temp = BFTRec(g)
 if temp is not None:
     for i in temp:
-        print(i.val)
+        print(i.val, end='')
 print()
 
 temp = BFTIter(g)
 if temp is not None:
     for i in temp:
-        print(i.val)
+        print(i.val, end='')
 print()
 
-# temp = BFTRecLinkedList(g1)
+# temp = BFTRecLinkedList(g2)
 # if temp is not None:
 #     for i in temp:
-#         print(i.val)
-# print()
+#         print(i.val, end='')
+print()
 
-temp = BFTIterLinkedList(g2)
+temp = BFTIterLinkedList(g1)
 if temp is not None:
     for i in temp:
-        print(i.val)
+        print(i.val, end='')
 print()
