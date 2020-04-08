@@ -1,15 +1,9 @@
 import random
-
-class Node:
-    def __init__(self, value=None, edges=None):
-        self.val = value
-        if edges is None:
-            self.edges = {}
-        else:
-            self.edges = edges
+from Node import Node
+from GraphInterface import GraphInterface
 
 
-class Graph:
+class Graph(GraphInterface):
     def __init__(self):
         self.Nodes = {}
 
@@ -42,6 +36,7 @@ def createRandomUnweightedGraphIter(n):
                 g.addUndirectedEdge(g.Nodes[i], g.Nodes[j])
     return g
 
+
 def createLinkedList(n):
     g = Graph()
     prev = None
@@ -52,10 +47,12 @@ def createLinkedList(n):
         prev = i
     return g
 
+
 def DFSRec(start, end):
     if start == end:
         return [start]
     return DFSRecHelper(start, end, set())
+
 
 def DFSRecHelper(cur, end, visited):
     if cur is None:
@@ -71,6 +68,7 @@ def DFSRecHelper(cur, end, visited):
             temp = [cur] + temp
             return temp
     return None
+
 
 def DFSIter(start, end):
     if start == end:
@@ -97,6 +95,7 @@ def DFSIter(start, end):
                 return None
     return path
 
+
 def BFTRec(graph):
     if graph is None:
         return None
@@ -112,6 +111,7 @@ def BFTRec(graph):
             BFTRecHelper(visited, q, l)
     return l
 
+
 def BFTRecHelper(visited, q, l):
     if len(q) == 0:
         return
@@ -122,6 +122,7 @@ def BFTRecHelper(visited, q, l):
             q.append(i)
             visited.add(i)
     BFTRecHelper(visited, q, l)
+
 
 def BFTIter(graph):
     if graph is None:
@@ -148,12 +149,14 @@ def BFTIter(graph):
                     cur = None
     return l
 
+
 def BFTRecLinkedList(graph):
     if graph is None:
         return None
     if len(graph.Nodes) == 0:
         return []
     return BFTRecLinkedListHelper(graph.Nodes[0])
+
 
 def BFTRecLinkedListHelper(cur):
     if len(cur.edges) == 1:
@@ -162,8 +165,10 @@ def BFTRecLinkedListHelper(cur):
         return [cur]
     return [cur] + BFTRecLinkedListHelper(cur.edges[cur.val + 1])
 
+
 def BFTIterLinkedList(graph):
     return graph.Nodes.values()
+
 
 n = 10
 n1 = 10000
