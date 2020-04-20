@@ -1,5 +1,5 @@
 import random
-import sys
+import math
 from Node import Node
 from GraphInterface import GraphInterface
 
@@ -12,7 +12,7 @@ class WeightedDirectedGraph(GraphInterface):
         self.Nodes[nodeVal] = Node(nodeVal)
 
     def addDirectedEdge(self, first, second, edgeWeight):
-        if first.val in self.Nodes:
+        if first.val in self.Nodes and second.val in self.Nodes:
             self.Nodes[first.val].edges[second.val] = [second, edgeWeight]
 
     def removeDirectedEdge(self, first, second):
@@ -54,9 +54,10 @@ def dijkstras(start):
         return None
     finished = {}
     d = {}
-    min = inf
+    min = math.inf
     for i in start.edges.values():
-        if i[1] < inf:
+        if i[1] < math.inf:
+            #  do something
             
 
 

@@ -11,15 +11,13 @@ class Graph(GraphInterface):
         self.Nodes[nodeVal] = Node(nodeVal)
 
     def addUndirectedEdge(self, first, second):
-        if first.val in self.Nodes:
+        if first.val in self.Nodes and second.val in self.Nodes:
             self.Nodes[first.val].edges[second.val] = second
-        if second.val in self.Nodes:
             self.Nodes[second.val].edges[first.val] = first
 
     def removeUndirectedEdge(self, first, second):
-        if first.val in self.Nodes:
+        if first.val in self.Nodes and second.val in self.Nodes:
             del self.Nodes[first.val].edges[second.val]
-        if second.val in self.Nodes:
             del self.Nodes[second.val].edges[first.val]
 
     def getAllNodes(self):
@@ -39,12 +37,11 @@ def createRandomUnweightedGraphIter(n):
 
 def createLinkedList(n):
     g = Graph()
-    prev = None
-    for i in range(n):
-        g.addNode(i)
-        if prev is not None:
-            g.addUndirectedEdge(g.Nodes[i], g.Nodes[prev])
-        prev = i
+    if n > 0:
+        g.addNode(0)
+        for i in range(1, n):
+            g.addNode(i)
+            g.addUndirectedEdge(g.Nodes[i], g.Nodes[i-1])
     return g
 
 
@@ -102,26 +99,26 @@ def BFTRec(graph):
     if len(graph.Nodes) == 0:
         return []
     visited = set()
-    l = []
-    q = []
+    traversallist = []
+    traversalqueue = []
     for i in graph.Nodes.values():
         if i not in visited:
-            q.append(i)
+            traversalqueue.append(i)
             visited.add(i)
-            BFTRecHelper(visited, q, l)
-    return l
+            BFTRecHelper(visited, traversalqueue, traversallist)
+    return traversallist
 
 
-def BFTRecHelper(visited, q, l):
-    if len(q) == 0:
+def BFTRecHelper(visited, traversalqueue, traversallist):
+    if len(traversalqueue) == 0:
         return
-    cur = q.pop(0)
-    l.append(cur)
+    cur = traversalqueue.pop(0)
+    traversallist.append(cur)
     for i in cur.edges.values():
         if i not in visited:
-            q.append(i)
+            traversalqueue.append(i)
             visited.add(i)
-    BFTRecHelper(visited, q, l)
+    BFTRecHelper(visited, traversalqueue, traversallist)
 
 
 def BFTIter(graph):
@@ -129,25 +126,21 @@ def BFTIter(graph):
         return None
     if len(graph.Nodes) == 0:
         return []
-    l = []
-    q = []
+    returnlist = []
+    traversalqueue = []
     visited = set()
     for i in graph.Nodes.values():
         if i not in visited:
-            q.append(i)
+            traversalqueue.append(i)
             visited.add(i)
-            cur = q.pop(0)
-            while cur:
-                l.append(cur)
+            while len(traversalqueue) > 0:
+                cur = traversalqueue.pop(0)
+                returnlist.append(cur)
                 for j in cur.edges.values():
                     if j not in visited:
-                        q.append(j)
+                        traversalqueue.append(j)
                         visited.add(j)
-                if len(q) > 0:
-                    cur = q.pop(0)
-                else:
-                    cur = None
-    return l
+    return returnlist
 
 
 def BFTRecLinkedList(graph):
@@ -174,7 +167,7 @@ n = 10
 n1 = 10000
 g = createRandomUnweightedGraphIter(n)
 g1 = createLinkedList(n)
-g2 = createLinkedList(n1)
+#  g2 = createLinkedList(n1)
 
 temp = DFSRec(g.Nodes[0], g.Nodes[n-1])
 if temp is not None:
